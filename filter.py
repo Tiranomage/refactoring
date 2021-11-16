@@ -22,12 +22,12 @@ pixels = np.array(image)
 size = int(input("Размер мозайки: "))
 step = 256 / int(input("Градация: "))
 cutted_img = cut_off_img(pixels, size)
-height = len(pixels)
-width = len(pixels[1])
+height = len(cutted_img)
+width = len(cutted_img[1])
 for x in range(width):
     for y in range(height):
-        color = get_colors(pixels, x, y) / 3
-        set_colors(pixels, x, y, color, step)
+        color = get_colors(cutted_img, x, y) / 3
+        set_colors(cutted_img, x, y, color, step)
 
 
 res = Image.fromarray(pixels)
