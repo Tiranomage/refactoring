@@ -4,7 +4,7 @@ import numpy as np
 def cut_off_img(pixels, size):
     over_height = len(pixels) % size
     over_width = len(pixels[1]) % size
-    return pixels[:len(pixels) - over_height, :len(pixels) - over_width]
+    return pixels[:len(pixels) - over_height, :len(pixels[1]) - over_width]
 
 def get_colors(cutted_img, x, y):
     red = cutted_img[y][x][0]
@@ -27,7 +27,7 @@ width = len(pixels[1])
 for x in range(width):
     for y in range(height):
         color = get_colors(pixels, x, y) / 3
-        set_colors(pixels, x, y, color, size)
+        set_colors(pixels, x, y, color, step)
 
 
 res = Image.fromarray(pixels)
