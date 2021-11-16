@@ -12,10 +12,10 @@ def get_colors(cutted_img, x, y):
     blue = cutted_img[y][x][2]
     return int(red) + int(green) + int(blue)
 
-def set_colors(cutted_img, x, y, sum, step):
-    cutted_img[y][x][0] = int(sum // step) * step
-    cutted_img[y][x][1] = int(sum // step) * step
-    cutted_img[y][x][2] = int(sum // step) * step
+def set_colors(cutted_img, x, y, color, step):
+    cutted_img[y][x][0] = int(color // step) * step
+    cutted_img[y][x][1] = int(color // step) * step
+    cutted_img[y][x][2] = int(color // step) * step
 
 image = Image.open("img2.jpg")
 pixels = np.array(image)
@@ -24,11 +24,20 @@ step = 256 / int(input("Градация: "))
 cutted_img = cut_off_img(pixels, size)
 height = len(cutted_img)
 width = len(cutted_img[1])
-for x in range(width):
-    for y in range(height):
-        color = get_colors(cutted_img, x, y) / 3
-        set_colors(cutted_img, x, y, color, step)
-
+y = 0
+while y < height:
+    x = 0
+    while x < width:
+        color = 0
+        for y1 in range(y, y + size):
+            for x1 in range(x, x + size):
+                color += get_colors(cutted_img, x1, y1)
+        color = int(color // (size ** 2))
+        for y1 in range(y, y + size):
+            for x1 in range(x, x + size):
+                set_colors(cutted_img, x1, y1, color / 3, step)
+        x = x + size
+    y = y + size
 
 res = Image.fromarray(pixels)
 res.save('res.jpg')
