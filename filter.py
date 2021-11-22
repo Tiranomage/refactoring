@@ -17,7 +17,8 @@ def set_colors(cutted_img, x, y, color, step):
     cutted_img[y][x][1] = int(color // step) * step
     cutted_img[y][x][2] = int(color // step) * step
 
-image = Image.open("img2.jpg")
+#image = Image.open("img2.jpg")
+image = Image.open(input("Введите название файла с расширением: "))
 pixels = np.array(image)
 size = int(input("Размер мозайки: "))
 step = 256 / int(input("Градация: "))
